@@ -18,7 +18,7 @@ HPC_SS <- subset(HPC, Date >= "2007-02-01" & Date <= "2007-02-02")
 #Converting class to numeric for third column
 HPC_SS$Global_active_power <- as.numeric(HPC_SS$Global_active_power)
 
-#Plot the histogram plot and writing it as a png file
+#Plotting the histogram plot and writing it as a png file
 png("plot1.png", width = 480, height = 480)
 
 hist(HPC_SS$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global Active Power (kilowatts)")
