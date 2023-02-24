@@ -19,12 +19,22 @@ HPC_SS$Date <- as.Date(HPC_SS$Date, format = "%d/%m/%Y")
 #Combining date and Time
 HPC_SS$D_T <- as.POSIXct(paste(HPC_SS$Date, HPC_SS$Time))
 
-#Plotting the energy sub metering against time vector and writing it as a png file
-png("plot3.png", width = 480, height = 480)
+#Customised composite plot with 4 grids
+
+png("plot4.png", width = 480, height = 480)
+
+par(mfrow = c(2,2))
+
+#Plotting the grid with Global Active Power, Voltage, 4 Energy sub metering's and Global_reactive_power
+plot(HPC_SS$D_T, HPC_SS$Global_active_power, xlab = "", ylab = "Global Active Power (kilowatts)", type = "l")
+
+plot(HPC_SS$D_T, HPC_SS$Voltage, xlab = "datetime", ylab = "Voltage", type = "l")
 
 plot(HPC_SS$D_T, HPC_SS$Sub_metering_1, xlab = "", ylab = "Energy sub metering", type = "l")
   lines(HPC_SS$D_T, HPC_SS$Sub_metering_2, col = "red")
   lines(HPC_SS$D_T, HPC_SS$Sub_metering_3, col = "blue")
-  legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), col = c("black","red","blue"), lty = 1)
+  legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), col = c("black","red","blue"), cex = 0.8, lty = 1 , bty = "n")
+
+plot(HPC_SS$D_T, HPC_SS$Global_reactive_power, xlab = "datetime", ylab = "Global_reactive_power", type = "l")
 
 dev.off()
