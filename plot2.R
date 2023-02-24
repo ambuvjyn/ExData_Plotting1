@@ -11,16 +11,17 @@ unzip(zipfile="./household_power_consumption.zip",exdir="./")
 HPC <- read.csv("household_power_consumption.txt", sep=";", stringsAsFactors=F)
 
 #Subset data from the dates 2007-02-01 and 2007-02-02
-HPC$Date <- as.Date(HPC$Date, format = "%d/%m/%Y")
+HPC_SS<- subset(HPC, (HPC$Date == "1/2/2007" | HPC$Date== "2/2/2007"))
 
-HPC_SS <- subset(HPC, Date >= "2007-02-01" & Date <= "2007-02-02")
+#Formatting the date
+HPC_SS$Date <- as.Date(HPC_SS$Date, format = "%d/%m/%Y")
 
-#Converting class to numeric for third column
-HPC_SS$Global_active_power <- as.numeric(HPC_SS$Global_active_power)
+#Combining date and Time
+HPC_SS$D_T <- as.POSIXct(paste(HPC_SS$Date, HPC_SS$Time))
 
 #Plot the histogram plot and writing it as a png file
-png("plot1.png", width = 480, height = 480)
+png("plot2.png", width = 480, height = 480)
 
-hist(HPC_SS$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global Active Power (kilowatts)")
+plot(HPC_SS$D_T, HPC_SS$Global_active_power, type="l", ylab= "Global Active Power(kilowatts)", xlab="")
 
 dev.off()
